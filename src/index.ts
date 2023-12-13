@@ -5,8 +5,14 @@ import { Server } from 'socket.io';
 const app = express();
 const server = createServer(app);
 const io = new Server(server);
+let nbPlayers = 0;
 
-io.on('connection', (socket) => {
+
+io.on('connection', (socket) => { 
+  nbPlayers++;
+  if(nbPlayers === 2)  {
+    socket.emit('partieprete');
+  }
   socket.on('chat message', (msg) => {
     console.log('message: ' + msg);
     socket.broadcast.emit('patate', msg)
