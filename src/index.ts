@@ -11,7 +11,7 @@ let nbPlayers = 0;
 io.on('connection', (socket) => { 
   nbPlayers++;
   if(nbPlayers === 2)  {
-    socket.emit('partieprete');
+    io.emit('partieprete');
     console.log('partieprete');
   }
   // socket.on('demandesynchro', (msg) => {
@@ -21,7 +21,7 @@ io.on('connection', (socket) => {
     console.log('message: ' + msg);
     socket.broadcast.emit('patate', msg)
   });
-});
+// });
 
 server.listen(3000, () => {
   console.log('server running at http://localhost:3000');
