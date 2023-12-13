@@ -12,7 +12,11 @@ io.on('connection', (socket) => {
   nbPlayers++;
   if(nbPlayers === 2)  {
     socket.emit('partieprete');
+    console.log('partieprete');
   }
+  socket.on('demandesynchro', (msg) => {
+    console.log('demandesynchro' + msg);
+  })
   socket.on('chat message', (msg) => {
     console.log('message: ' + msg);
     socket.broadcast.emit('patate', msg)
