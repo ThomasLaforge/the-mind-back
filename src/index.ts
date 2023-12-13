@@ -14,8 +14,8 @@ io.on('connection', (socket) => {
     socket.emit('partieprete');
     console.log('partieprete');
   }
-  socket.on('demandesynchro', (msg) => {
-    console.log('demandesynchro' + msg);
+  // socket.on('demandesynchro', (msg) => {
+  //   console.log('demandesynchro' + msg);
   })
   socket.on('chat message', (msg) => {
     console.log('message: ' + msg);
