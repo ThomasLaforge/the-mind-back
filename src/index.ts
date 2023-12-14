@@ -15,19 +15,30 @@ const io = new Server(server);
 let nbPlayers = 0;
 let initialcards :number[] = [];
 let Players: any[] = [];
-// let Cards
-initialcards = shuffle([]);
+let nbTurns = 0;
 
 
 io.on('connection', (socket) => { 
   Players.push(socket)
   if(Players.length === 2)  {
-    io.emit('partieprete');
     console.log('partieprete')
+    nbTurns = nbTurns + 1
+    initialcards = []
+
     for (let i = 1; i < 101; i++) {
       initialcards.push(i);
     }
-  }
+
+    initialcards = shuffle(initialcards);
+
+    for (let i = 0; i < Players.length; i++) {
+      const s = Players[i];
+      const cartesJoueur = initialcards.slice(0, nbTurns)
+      initialcards = initialcards.slice(nbTurns)
+      console.log('Cartes J' + (i + 1) ,cartesJoueur)
+      s.emit('partieprete', cartesJoueur);
+    }
+  };
   socket.on('chat message', (msg) => {
     console.log('message: ' + msg);
     socket.broadcast.emit('patate', msg)
@@ -35,7 +46,8 @@ io.on('connection', (socket) => {
   socket.on('demandesynchro', (msg) => {
     console.log('demandesynchro' +  msg);
     socket.broadcast.emit('synchrook', msg)
-  })
+  });
+
 });
 
 server.listen(3000, () => {
