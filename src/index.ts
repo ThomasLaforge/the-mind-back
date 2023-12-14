@@ -28,11 +28,14 @@ io.on('connection', (socket) => {
       initialcards.push(i);
     }
   }
-
   socket.on('chat message', (msg) => {
     console.log('message: ' + msg);
     socket.broadcast.emit('patate', msg)
   });
+  socket.on('demandesynchro', (msg) => {
+    console.log('demandesynchro' +  msg);
+    socket.broadcast.emit('synchrook', msg)
+  })
 });
 
 server.listen(3000, () => {
