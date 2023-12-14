@@ -9,7 +9,8 @@ const server = createServer(app);
 const io = new Server(server);
 let nbPlayers = 0;
 let initialcards :number[] = [];
-let Players: any[] = []
+let Players: any[] = [];
+// let Cards
 
 
 
@@ -20,7 +21,7 @@ io.on('connection', (socket) => {
     console.log('partieprete')
     for (let i = 1; i < 101; i++) {
       initialcards.push(i);
-    
+        
     }
   }
 
