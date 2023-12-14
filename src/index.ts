@@ -4,6 +4,11 @@ import { Server } from 'socket.io';
 import { Socket } from 'socket.io-client';
 import { DefaultEventsMap } from 'socket.io/dist/typed-events';
 
+const shuffle = (array: number[]) => {
+  const arrToShuffle = array.slice()
+  arrToShuffle.sort( () => .5 - Math.random() );
+  return arrToShuffle
+}
 const app = express();
 const server = createServer(app);
 const io = new Server(server);
@@ -11,7 +16,7 @@ let nbPlayers = 0;
 let initialcards :number[] = [];
 let Players: any[] = [];
 // let Cards
-
+initialcards = shuffle([]);
 
 
 io.on('connection', (socket) => { 
@@ -21,7 +26,6 @@ io.on('connection', (socket) => {
     console.log('partieprete')
     for (let i = 1; i < 101; i++) {
       initialcards.push(i);
-        
     }
   }
 
